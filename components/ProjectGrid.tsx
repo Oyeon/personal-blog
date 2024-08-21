@@ -1,18 +1,12 @@
 import Link from "next/link";
-
-const projects = [
-  { id: 1, title: "Project 1", description: "A brief description of Project 1." },
-  { id: 2, title: "Project 2", description: "A brief description of Project 2." },
-  { id: 3, title: "Project 3", description: "A brief description of Project 3." },
-  { id: 4, title: "Project 4", description: "A brief description of Project 4." },
-  { id: 5, title: "Project 5", description: "A brief description of Project 5." },
-  { id: 6, title: "Project 6", description: "A brief description of Project 6." },
-];
+import { projects } from "../data/projects";
 
 export function ProjectGrid() {
+  const sortedProjects = projects.sort((a, b) => a.position - b.position);
+
   return (
     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-8">
-      {projects.map((project) => (
+      {sortedProjects.map((project) => (
         <Link
           key={project.id}
           href={`/pages/projects/${project.id}`}
@@ -22,7 +16,7 @@ export function ProjectGrid() {
           <div className="text-sm font-medium leading-none group-hover:underline">{project.title}</div>
           <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">{project.description}</div>
           <img
-            src="/placeholder.svg"
+            src={project.image}
             width="400"
             height="225"
             alt={project.title}
