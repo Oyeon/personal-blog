@@ -1,27 +1,14 @@
-import Link from "next/link";
+import { FaGithub } from 'react-icons/fa'; // Importing GitHub icon
 
 export function Footer() {
-  const footerLinks = {
-    "Quick Links": ["Home", "About", "Projects", "Contact"],
-    Projects: ["Project 1", "Project 2", "Project 3", "Project 4"],
-    Resources: ["Blog", "Tutorials", "FAQs", "Documentation"],
-    Legal: ["Privacy Policy", "Terms of Service", "Cookie Policy"],
-    Contact: ["Email", "Phone", "Social Media"],
-  };
-
   return (
     <footer className="bg-muted p-6 md:py-12 w-full">
-      <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-sm">
-        {Object.entries(footerLinks).map(([section, links]) => (
-          <div key={section} className="grid gap-1">
-            <h3 className="font-semibold">{section}</h3>
-            {links.map((link) => (
-              <Link key={link} href="#" prefetch={false}>
-                {link}
-              </Link>
-            ))}
-          </div>
-        ))}
+      <div className="container max-w-7xl text-sm">
+        <p>Oyeon Kwon's public academic website: 
+          <a href="https://github.com/Oyeon/personal-blog" target="_blank" rel="noopener noreferrer" className="inline-flex items-center">
+            <FaGithub className="w-4 h-4 mr-1" /> source code
+          </a>. Thank you for sharing the great material!
+        </p>
       </div>
     </footer>
   );

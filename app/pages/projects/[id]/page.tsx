@@ -8,14 +8,19 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ProjectDetail({ params }) {
+interface Params {
+  id: string;
+}
+
+export default function ProjectDetail({ params }: { params: Params }) {
   const { id } = params;
 
   const project = projects.find((project) => project.id.toString() === id);
+ 
 
   if (!project) {
     notFound();
   }
 
-  return <ProjectDetails project={project} />;
+  return <ProjectDetails project={project as any} />; // Cast project to any type
 }

@@ -1,11 +1,19 @@
 import Link from "next/link";
 import { projects } from "../data/projects";
 
-export function ProjectGrid() {
-  const sortedProjects = projects.sort((a, b) => a.position - b.position);
+export function ProjectGrid({ filter }: { filter: 'new' | 'past' }) {
+  const cutoffDate = new Date('2024-01-01');
+  const filteredProjects = projects.filter(project => {
+    const projectEndDate = new Date(project.endDate);
+    return filter === 'new' 
+      ? projectEndDate >= cutoffDate 
+      : projectEndDate < cutoffDate;
+  });
+
+  const sortedProjects = filteredProjects.sort((a, b) => a.position - b.position);
 
   return (
-    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-8">
+    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {sortedProjects.map((project) => (
         <Link
           key={project.id}
@@ -16,7 +24,7 @@ export function ProjectGrid() {
           <div className="text-sm font-medium leading-none group-hover:underline">{project.title}</div>
           <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">{project.description}</div>
           <img
-            src={project.image}
+            src={project.images ? project.images[0] : ''}
             width="400"
             height="225"
             alt={project.title}
